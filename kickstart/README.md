@@ -127,8 +127,8 @@ for (let contract in output) {
 
 -   in terminal run `node compile.js`
 
-## **create test**
--   `kickstart.test.js`
+## **create tests**
+-   `Campaign.test.js`
     ```
     
     ```
