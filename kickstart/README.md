@@ -430,3 +430,51 @@ infuraSepoliaEndpoint = 'this is your Sepolia endpoint'
     ```
     node deploy.js
     ```
+## Next.js
+
+**Install next.js**
+```
+npm install next react react-dom
+```
+
+<details>
+  <summary>Create next architecture</summary>
+
+**under kickstart root directory**
+```
+mkdie pages
+cd pages
+touch show.js
+touch newcampaign.js
+```   
+
+`newcampaign.js`
+```
+import React from 'react';
+
+export default () => {
+    return <h1>This is the new campaign page!!!</h1>
+}
+```
+
+`show.js`
+```
+import React from 'react';
+
+export default () => {
+    return <h1>Welcome to the show page!!!</h1>
+}
+```
+
+**add the `package.json`**
+```
+"scripts": {
+    "dev": "next dev"
+}
+```
+
+**npm run dev**
+```
+npm run dev
+```
+</details>
