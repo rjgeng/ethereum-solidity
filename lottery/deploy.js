@@ -1,13 +1,11 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
 const { interface, bytecode } = require('./compile');
-const { metamaskSRP } = require('./secret')
+const { metamaskSRP, infuraRinkebyEndpoint, infuraGorliEndpoint } = require('./secret')
 
 const provider = new HDWalletProvider(
-  metamaskSRP,
-  // remember to change this to your own phrase!
-  'https://rinkeby.infura.io/v3/00f0c438b0dc4848bc99f00b971b0a7c'
-  // remember to change this to your own endpoint!
+  metamaskSRP,   // remember to change this to your own phrase!
+  infuraRinkebyEndpoint   // remember to change this to your own endpoint!
 );
 const web3 = new Web3(provider);
 
@@ -21,7 +19,7 @@ const deploy = async () => {
     .send({ gas: '1000000', from: accounts[0] });
 
   console.log(interface);
-  console.log('Contract deployed to', result.options.address);
+  console.log('Contract deployed to infuraRinkebyEndpoint', result.options.address);
   provider.engine.stop();
 };
 deploy();
