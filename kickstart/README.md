@@ -1,17 +1,52 @@
-#   Kickstart
+# Kickstart
 
-##  initialize Project - Kickstart
+##  Initialize Project - Kickstart
 -   `mkdir kickstart`
 -   `cd kickstart`
 -   `npm init`
 
+<details>
+  <summary>Set up folders and files</summary>
+
+![Kickstart - package.json](imgs/Kickstart-files-architecture.png)
+---
+</details> 
+
 ##  Installing Modules
 
-**install ganache-cli mocha solc@0.4.17 fs-extra web3 @truffle/hdwallet-provider** 
+**install ganache-cli mocha solc@0.4.17 fs-extra web3 @truffle/hdwallet-provider dotenv** 
 ```
-npm install ganache-cli mocha solc@0.4.17 fs-extra web3 @truffle/hdwallet-provider
+npm install ganache-cli mocha solc@0.4.17 fs-extra web3 @truffle/hdwallet-provider dotenv
 ```
-## **create a Campaign.sol**
+
+<details>
+<summary>package.json</summary>
+
+```
+{
+"name": "kickstart",
+"version": "1.0.0",
+"description": "",
+"main": "index.js",
+"scripts": {
+    "test": "mocha"
+},
+"author": "",
+"license": "ISC",
+"dependencies": {
+    "@truffle/hdwallet-provider": "^1.7.0",
+    "dotenv": "^16.0.1",
+    "fs-extra": "^10.1.0",
+    "ganache-cli": "^6.12.2",
+    "mocha": "^9.2.2",
+    "solc": "^0.4.17",
+    "web3": "^1.7.5"
+}
+}
+```    
+</details>
+
+## Create a Campaign.sol
 <details>
   <summary>Campaign.sol</summary>
 
@@ -99,36 +134,11 @@ contract Campaign {
 ```
 </details>  
  
-## **create compile.js**
--   `compile.js`
-```
-const path = require("path");
-const solc = require("solc");
-const fs = require("fs-extra");
+## create test files
 
-const buildPath = path.resolve(__dirname, "build");
-fs.removeSync(buildPath);
+<details>
+  <summary>Campaign.test.js</summary>
 
-const campaignPath = path.resolve(__dirname, "contracts", "Campaign.sol");
-const source = fs.readFileSync(campaignPath, "utf8");
-const output = solc.compile(source, 1).contracts;
-
-fs.ensureDirSync(buildPath);
-
-for (let contract in output) {
-  fs.outputJsonSync(
-    path.resolve(buildPath, contract.replace(':', '') + ".json"),
-    output[contract]
-  );
-}
-```
-
-##  run `node compile.js`
-
--   in terminal run `node compile.js`
-
-## **create tests**
--   `Campaign.test.js`
 ```
 const assert = require('assert');
 const ganache = require('ganache-cli');
@@ -236,7 +246,9 @@ describe('[Campaigns', () => {
     });
 });
 ```
-###  Testing with Mocha 
+</details>  
+
+**Testing with Mocha** 
 
 -   change the `package.json`
     ```
@@ -257,24 +269,24 @@ describe('[Campaigns', () => {
 <details>
   <summary>If the following Error: 0308010C:digital envelope routines::unsupported</summary>
 
-```
-Error: error:0308010C:digital envelope routines::unsupported
-    at new Hash (node:internal/crypto/hash:67:19)
-    at Object.createHash (node:crypto:130:10)
-    at module.exports (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/util/createHash.js:135:53)
-    at NormalModule._initBuildHash (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:417:16)
-    at handleParseError (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:471:10)
-    at /Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:503:5
-    at /Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:358:12
-    at /Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:373:3
-    at iterateNormalLoaders (/Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:214:10)
-    at iterateNormalLoaders (/Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:221:10)
-/Users/user/Programming Documents/WebServer/untitled/node_modules/react-scripts/scripts/start.js:19
-throw err;
-^
-```
+    ```
+    Error: error:0308010C:digital envelope routines::unsupported
+        at new Hash (node:internal/crypto/hash:67:19)
+        at Object.createHash (node:crypto:130:10)
+        at module.exports (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/util/createHash.js:135:53)
+        at NormalModule._initBuildHash (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:417:16)
+        at handleParseError (/Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:471:10)
+        at /Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:503:5
+        at /Users/user/Programming Documents/WebServer/untitled/node_modules/webpack/lib/NormalModule.js:358:12
+        at /Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:373:3
+        at iterateNormalLoaders (/Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:214:10)
+        at iterateNormalLoaders (/Users/user/Programming Documents/WebServer/untitled/node_modules/loader-runner/lib/LoaderRunner.js:221:10)
+    /Users/user/Programming Documents/WebServer/untitled/node_modules/react-scripts/scripts/start.js:19
+    throw err;
+    ^
+    ```
 
-**Solution: Open terminal and paste these as described :**
+**Open terminal and paste these as described :**
 
 -   Linux & Mac OS (windows git bash)-
     ```
@@ -284,49 +296,137 @@ throw err;
 - [Error message "error:0308010C:digital envelope routines::unsupported"](https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported)
 </details> 
 
-## **Infura Signup**
+## **Create compile.js**
+<details>
+  <summary>compile.js</summary>
+
+```
+const path = require("path");
+const solc = require("solc");
+const fs = require("fs-extra");
+
+const buildPath = path.resolve(__dirname, "build");
+fs.removeSync(buildPath);
+
+const campaignPath = path.resolve(__dirname, "contracts", "Campaign.sol");
+const source = fs.readFileSync(campaignPath, "utf8");
+const output = solc.compile(source, 1).contracts;
+
+fs.ensureDirSync(buildPath);
+
+for (let contract in output) {
+  fs.outputJsonSync(
+    path.resolve(buildPath, contract.replace(':', '') + ".json"),
+    output[contract]
+  );
+}
+```
+</details>  
+
+**run `node compile.js`**
+
+-   in terminal run 
+```
+node compile.js
+```
+
+<details>
+  <summary>compile - issues</summary>
+
+```
+In the upcoming lecture, we will be logging the compilation of our script to the terminal. If you are using **solc 0.4.17** as shown in the course, you may get these warnings:
+
+*Invalid asm.js: Invalid member of stdlib*
+
+or
+
+*':6:5: Warning: Defining constructors as functions with the same name as the contract is deprecated. Use "constructor(...) { ... }" instead.\n' +*
+
+'    function Inbox(string initialMessage) public {\n' +
+
+'    ^ (Relevant source part starts here and spans across multiple lines).\n'
+
+**These specific warnings can be ignored as they will not cause any issues with the compilation or deployment of the contract we are building.**
+```
+</details>  
+
+## Infura Signup
 
 -   [infura.io](https://infura.io/)
 
-##  **Wallet Provider Setup**
+##  Wallet Provider Setup
 
 -   Wallet Provider Setup
     ```
     npm install @truffle/hdwallet-provider
     ```
-## **Create deploy.js** 
--   `deploy.js`
+## Create deploy.js 
+<details>
+  <summary>deploy.js</summary>
+
+```
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const Web3 = require('web3');
+const compiledFactory = require('./build/CampaignFactory.json');
+
+const { 
+  metamaskSRP, 
+  infuraRinkebyEndpoint, 
+  infuraGorliEndpoint, 
+  infuraSepoliaEndpoint 
+} = require('./secret');
+
+const provider = new HDWalletProvider(
+  metamaskSRP,   // remember to change this to your own phrase!
+  infuraRinkebyEndpoint   // remember to change this to your own endpoint!
+);
+const web3 = new Web3(provider);
+
+const deploy = async () => {
+  const accounts = await web3.eth.getAccounts();
+
+  console.log('Attempting to deploy from account', accounts[0]);
+
+  const result = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
+    .deploy({ data: compiledFactory.bytecode })
+    .send({ gas: '1000000', from: accounts[0] });
+
+  console.log('Contract deployed to infuraRinkebyEndpoint', result.options.address);
+  provider.engine.stop();
+};
+deploy();
+```
+</details>
+
+**Create secrest folder and .env**
+
+-   install dotenv
     ```
-    const HDWalletProvider = require('@truffle/hdwallet-provider');
-    const Web3 = require('web3');
-    const { interface, bytecode } = require('./compile');
-
-    const provider = new HDWalletProvider(
-        'REPLACE_WITH_YOUR_MNEMONIC',
-        // remember to change this to your own phrase!
-        'https://rinkeby.infura.io/v3/15c1d32581894b88a92d8d9e519e476c'
-        // remember to change this to your own endpoint!
-    );
-    const web3 = new Web3(provider);
-
-    const deploy = async () => {
-        const accounts = await web3.eth.getAccounts();
-
-        console.log('Attempting to deploy from account', accounts[0]);
-
-        const result = await new web3.eth.Contract(JSON.parse(interface))
-            .deploy({ data: bytecode, arguments: ['Hi there!'] })
-            .send({ gas: '1000000', from: accounts[0] });
-
-        console.log('Contract deployed to', result.options.address);
-        provider.engine.stop();
-    };
-    deploy();
+    npm install dotenv
     ```
+`secret/index.js`    
+```
+require('dotenv').config() 
 
-###  Deployment to Rinkeby 
+module.exports = {
+  metamaskSRP: process.env.metamaskSRP,
+  infuraRinkebyEndpoint: process.env.infuraRinkebyEndpoint,
+  infuraGorliEndpoint: process.env.infuraGorliEndpoint,
+  infuraSepoliaEndpoint: process.env.infuraSepoliaEndpoint,
+}
+```
 
--   Deployment to Rinkeby 
+`.env`
+```
+metamaskSRP = 'this is your own phrase'
+infuraRinkebyEndpoint = 'this is your Rinkeby endpoint'
+infuraGorliEndpoint = 'this is your Goeril endpoint'
+infuraSepoliaEndpoint = 'this is your Sepolia endpoint'
+```
+
+**Deployment** 
+
+-   Deployment 
     ```
     node deploy.js
     ```
