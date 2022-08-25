@@ -2,7 +2,12 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
 const compiledFactory = require('./build/CampaignFactory.json');
 
-const { metamaskSRP, infuraRinkebyEndpoint, infuraGorliEndpoint } = require('./secret');
+const { 
+  metamaskSRP, 
+  infuraRinkebyEndpoint, 
+  infuraGorliEndpoint, 
+  infuraSepoliaEndpoint 
+} = require('./secret');
 
 const provider = new HDWalletProvider(
   metamaskSRP,   // remember to change this to your own phrase!
