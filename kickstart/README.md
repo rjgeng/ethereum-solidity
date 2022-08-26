@@ -529,7 +529,7 @@ export default instance;
 -   createCampain - 100
 
 
-![166. Getting a Test Campaign](../Ethereum-and-Solidity_The_Complete_Developers_Guide/imgs/166_Getting-a-Test-Campaign.png)
+![166. Getting a Test Campaign](imgs/166_Getting-a-Test-Campaign.png)
 ---
 </details>
 
@@ -578,3 +578,50 @@ export default web3;
 ```
 </details>
  
+## Semantic UI React
+
+<details>
+  <summary>Install Semantic UI React</summary>
+
+```
+$  yarn add semantic-ui-react semantic-ui-css
+```
+or
+```
+$  npm install semantic-ui-react semantic-ui-css
+```
+</details>
+
+<details>
+  <summary>Card Group Setup</summary>
+
+**index.js**
+```
+import React, { Component } from "react";
+import { Card } from "semantic-ui-react";
+import factory from "../ethereum/factory";
+
+class CampaignIndex extends Component {
+  static async getInitialProps() {
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
+
+    return { campaigns };
+  }
+  renderCampaigns() {
+    const items = this.props.campaigns.map((address) => {
+      return {
+        header: address,
+        description: <a>View Campaign</a>,
+        fluid: true,
+      };
+    });
+    return <Card.Group items={items} />;
+  }
+  render() {
+    return <div>{this.renderCampaigns()}</div>;
+  }
+}
+
+export default CampaignIndex;
+``` 
+</details> 
