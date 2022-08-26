@@ -516,4 +516,64 @@ export default instance;
 ```
 </details>  
 
+<details>
+  <summary>Getting a Test Campaign - remix (166)</summary>
+
+-   ENVIRONMENT  -->  Injected Provider - Metamask 
+    - Metamask --> loggedin --> Rinkeby 
+
+-   CONTRACT --> CampaingnFactory 
+
+-   At Address --> 0xe3f8884b2fa6e07dA7EF9dEbb7959Fd814e57098
+
+-   createCampain - 100
+
+
+![166. Getting a Test Campaign](../Ethereum-and-Solidity_The_Complete_Developers_Guide/imgs/166_Getting-a-Test-Campaign.png)
+---
+</details>
+
+<details>
+  <summary>Fetching Deployed Campaigns (167)</summary>
+
+**index.js** 
+```
+import React, { Component } from "react";
+import factory from "../ethereum/factory";
+
+class CampaignIndex extends Component {
+  async componentDidMount() {
+    const campaigns = await factory.methods.getDeployedCampaigns().call();
+    console.log(campaigns);
+  }
+
+  render() {
+    return <div>Campaigns Index!</div>;
+  }
+}
+
+export default CampaignIndex;
+```
+
+**web3.js**
+```
+import Web3 from "web3";
+ 
+let web3;
+ 
+if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
+  // We are in the browser and metamask is running.
+  window.ethereum.request({ method: "eth_requestAccounts" });
+  web3 = new Web3(window.ethereum);
+} else {
+  // We are on the server *OR* the user is not running metamask
+  const provider = new Web3.providers.HttpProvider(
+    "https://rinkeby.infura.io/v3/15c1d32581894b88a92d8d9e519e476c"
+  );
+  web3 = new Web3(provider);
+}
+ 
+export default web3;
+```
+</details>
  
