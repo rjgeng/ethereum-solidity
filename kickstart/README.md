@@ -643,16 +643,16 @@ export default CampaignIndex;
 <details>
   <summary>The Layout Component</summary>
 
-**Create components/Layout.js**
+**components/Layout.js**
 ```
 import React from "react";
+import Header from "./Header";
 
 const Layout = (props) => {
   return (
     <div>
-      <h1>Im a Header</h1>
+      <Header />
       {props.children}
-      <h1>Im a Footer</h1>
     </div>
   );
 };
@@ -700,5 +700,30 @@ class CampaignIndex extends Component {
 }
 
 export default CampaignIndex;
+```
+</details> 
+
+<details>
+  <summary>Assembling a Header</summary>
+
+**components/Header.js**
+```
+import React from "react";
+import { Menu } from "semantic-ui-react";
+
+const Header = () => {
+  return (
+    <Menu>
+      <Menu.Item>CrowdCoin</Menu.Item>
+
+      <Menu.Menu position="right">
+        <Menu.Item>Campaigns</Menu.Item>
+        <Menu.Item>+</Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  );
+};
+
+export default Header;
 ```
 </details> 
