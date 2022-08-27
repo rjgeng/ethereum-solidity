@@ -25,7 +25,8 @@ class CampaignIndex extends Component {
       <link
         rel="stylesheet"
         href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
-      />
+      />    
+      <h3>Open Campaigns</h3>  
       {this.renderCampaigns()}
       <Button 
         content="Create Campain"
