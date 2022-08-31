@@ -824,10 +824,10 @@ const Layout = (props) => {
 export default Layout;
 
 ```
-</details>   
+</details>    
 
 <details>
-  <summary>Form Creation - result capture</summary>
+  <summary>Form Creation</summary>
 
 **pages/campaign/new.js**
 ```
@@ -856,7 +856,7 @@ class CampaignNew extends Component {
 
 export default CampaignNew;
 ```
-</details>  
+</details>    
 
 <details>
   <summary>Input Change Handlers</summary>
@@ -1013,6 +1013,8 @@ export default CampaignNew;
 ```
 </details> 
 
+</details>  
+
 <details>
   <summary>Button Spinners</summary>
 
@@ -1135,9 +1137,8 @@ app.prepare().then(() => {
     ```
     npm run dev
     ```
-
 <details>
-  <summary>Automatic Navigation - result capture</summary>
+  <summary>Automatic Navigation</summary>
 
 **pages/campaign/new.js** - Button Spinners
 ```
@@ -1203,38 +1204,6 @@ class CampaignNew extends Component {
 export default CampaignNew;
 ```
 </details>
-
-<details>
-  <summary>Header Navigation</summary>
-
-**components/Header.js** - Header Navigation
-```
-import React from "react";
-import { Menu } from "semantic-ui-react";
-import { Link } from "../routes";
-
-const Header = () => {
-  return (
-    <Menu style={{ marginTop: "10px" }}>
-      <Link route="/">
-        <a className="item">CrowdCoin</a>
-      </Link>
-      <Menu.Menu position="right">
-        <Link route="/">
-          <a className="item">Campaigns</a>
-        </Link>
-
-        <Link route="/campaigns/new">
-          <a className="item">+</a>
-        </Link>
-      </Menu.Menu>
-    </Menu>
-  );
-};
-
-export default Header;
-```
-</details>  
 
 <details>
   <summary>Header Navigation</summary>
@@ -1376,8 +1345,7 @@ export default CampaignShow;
 </details>
 
 <details>
-  <summary>Redeploying CampaignFactory - result capture</summary>
-
+  <summary>Redeploying CampaignFactory</summary>
 
 **ethereum/contracts/Campaign.sol** -  Redeploying CampaignFactory
 ```
@@ -1923,3 +1891,46 @@ export default CampaignShow;
 ```
 </details>
 
+<details>
+  <summary>Making a Contribution</summary>
+
+**components/ContributeForm.js** - Making a Contribution
+```
+import React, { Component } from "react";
+import { Form, Input, Message, Button } from "semantic-ui-react";
+import Campaign from "../ethereum/campaign"; // --- Communicating the Campaign Address
+
+class ContributeForm extends Component {
+  state = {
+    value: "",
+  };
+
+  onSubmit = async (event) => {
+    event.preventDefault();
+
+    const campaign = Campaign(this.props.address); // --- Communicating the Campaign Address
+    
+  };
+
+  render() {
+    return (
+      <Form onSubmit={this.onSubmit}>
+        <Form.Field>
+          <label>Amount to Contribute</label>
+          <Input
+            value={this.state.value}
+            onChange={(event) => this.setState({ value: event.target.value })}
+            label="ether"
+            labelPosition="right"
+          />
+        </Form.Field>
+        <Button primary>Contribute!</Button>
+      </Form>
+    );
+  }
+}
+
+export default ContributeForm;
+
+```
+</details>
