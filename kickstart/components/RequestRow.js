@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Table } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import web3 from "../ethereum/web3";
 import Campaign from "../ethereum/campaign";
 
@@ -9,6 +9,15 @@ class RequestRow extends Component {
 
     const accounts = await web3.eth.getAccounts();
     await campaign.methods.approveRequest(this.props.id).send({
+      from: accounts[0],
+    });
+  };
+
+  onFinalize = async () => {
+    const campaign = Campaign(this.props.address);
+
+    const accounts = await web3.eth.getAccounts();
+    await campaign.methods.finalizeRequest(this.props.id).send({
       from: accounts[0],
     });
   };
@@ -31,8 +40,14 @@ class RequestRow extends Component {
             Approve
           </Button>
         </Cell>
+        <Cell>
+          <Button color="teal" basic onClick={this.onFinalize}>
+            Finalize
+          </Button>
+        </Cell>
       </Row>
     );
   }
 }
+
 export default RequestRow;
